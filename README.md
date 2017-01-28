@@ -19,7 +19,7 @@ It then prints out the missing episodes to screen.
 ```bash
     -t,   --target            Location of your files
     -n,   --name              Name of show
-    -e,   --episode-digits    Digits per episode number (ie. 800)
+    -e,   --episode-digits    Digits per episode number (ie. 800 has 3)
     -h,   --help              Prints this message
     -p,   --print             Prints missing shows to a file (default: missing.log)
 ```
