@@ -8,9 +8,6 @@
 #OLDIFS=$IFS
 #IFS=$'\n'
 
-
-
-
 helpmsg(){
 
     #echo -e "sekvens.sh"
@@ -102,5 +99,9 @@ main(){
 }
 
 
-main "$@"
 
+
+main "$@"
+echo $target
+echo $name
+echo $digits
