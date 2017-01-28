@@ -17,11 +17,11 @@ It then prints out the missing episodes to screen.
 ## Options
 
 ```bash
-    -t,   --target            Location of your files
-    -n,   --name              Name of show
-    -e,   --episode-digits    Digits per episode number (ie. 800 has 3)
-    -h,   --help              Prints this message
-    -p,   --print             Prints missing shows to a file (default: missing.log)
+    -t,         Location of your files
+    -n,         Name of podcast/show
+    -d,         Digits per episode number (ie. 800 has 3)
+    -h,         Prints this message
+    -p,         Prints missing shows to a file (default: missing.log)
 ```
 
 ## Example output
