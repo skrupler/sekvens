@@ -54,8 +54,9 @@ main(){
 	digits=""
 	print_to_file=false
 
-
-
+	$IFS=OLDIFS
+	IFS=$'\n'
+	
 	while getopts "t:n:d:ph" opt; do
 		case $opt in	
 		t)
@@ -71,7 +72,6 @@ main(){
 			# if this is true, tonight we feast
 			if $OPT;then
 				print_to_file=true
-				echo ${print_to_file}
 			else
 				print_to_file=false
 			fi
@@ -96,12 +96,46 @@ main(){
 			;;
 		esac
 	done
+	$IFS=$OLDIFS
 }
 
+prepare_name(){
+
+	# prepares the regex code for generate_list()
+	# takes n and d as param.
+
+	echo $1
+	echo $2
+
+	name_done=$(echo "^$1.*[0-9]{$2}.*" | tr ' ' '.*')
+	echo "$name_done"
+
+}
+
+#generate_list(){
+
+	# generates the first list
+	# takes name-regex param
 
 
+#}
+
+### FUCK THAT
+#compare_lists(){
+
+	# compares
+
+#}
+
+#missing_to_file(){
+
+	# writes missing files to list
+	# takes param
+
+#}
 
 main "$@"
-echo $target
-echo $name
-echo $digits
+prepare_name $name $digits
+#echo $target
+#echo $name
+#echo $digits
