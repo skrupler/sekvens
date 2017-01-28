@@ -9,6 +9,25 @@
 #IFS=$'\n'
 
 
+
+
+helpmsg(){
+
+    echo -e "sekvens.sh"
+	echo -ne "\n"
+	echo -e "Usage:"
+	echo -ne "\n"
+	echo -e "\t$0/path/to/save/location -n \"armin van buuren a state of trance\" -d 3"
+	echo -ne "\n"
+	echo -e "\t-t" "\t" "Location of your files"
+	echo -e "\t-n" "\t" "Name of podcast/show"
+	echo -e "\t-d" "\t" "Digits per episode number (ie. 800 has 3)"
+	echo -e "\t-p" "\t" "Prints this message"
+	echo -e "\t-h" "\t" "Prints missing shows to a file (default: missing.log)"
+
+
+}
+
 regex="^(va|armin.van.buuren)+.*a.state.of.trance.*[0-9][0-9][0-9].*2016.*"
 
 ARCHIVE_PATH=$1
@@ -20,22 +39,18 @@ lower=$(echo -ne "$ARCHIVE_PATH" "\n"| egrep -o "(_|-)+[0-9]{3}(_|-)+" | tr -d '
 upper=$(echo -ne "$ARCHIVE_PATH" "\n"| egrep -o "(_|-)+[0-9]{3}(_|-)+" | tr -d '-' | tr -d '_' | sort -nk3 | awk '!x[2]++')
 
 
-echo -ne "$ARCHIVE_PATH"
+#echo -ne "$ARCHIVE_PATH"
 #echo $lower
 #echo $upper
 
 
-SEQ=$(seq $lower $upper)
+#SEQ=$(seq $lower $upper)
 
 
-comm -13 <(echo -e "${TEST}" | sort | uniq) <(echo "${SEQ}")
+#comm -13 <(echo -e "${TEST}" | sort | uniq) <(echo "${SEQ}")
 
-echo $upper
-echo $lower
-
-if [ -z $name ];then
-	readline -o
-
+#echo $upper
+#echo $lower
 
 while getopts "t:n:d:ph" opt; do
 	case $opt in	
@@ -58,7 +73,7 @@ while getopts "t:n:d:ph" opt; do
 		;;
 	h)
 		# prints help msg
-		help
+		helpmsg
 		exit 1
 		;;
 	\?)
