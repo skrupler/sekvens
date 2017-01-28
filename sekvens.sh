@@ -104,21 +104,39 @@ prepare_name(){
 	# prepares the regex code for generate_list()
 	# takes n and d as param.
 
-	echo $1
-	echo $2
+	#echo $1
+	#echo $2
 
 	name_done=$(echo "^$1.*[0-9]{$2}.*" | tr ' ' '.*')
-	echo "$name_done"
+	#echo "$name_done"
 
 }
 
-#generate_list(){
+generate_list(){
 
 	# generates the first list
 	# takes name-regex param
 
 
-#}
+	init=0
+
+	get_folders=$(find $1 -regextype posix-awk regex $2 -type d in $target)
+
+	for x in $get_folders;do
+		folder_list[init]=$x
+		$init=$((init+1))
+	done
+
+
+	#folder_list=$(ls $target| egrep -io $name_done)
+
+	# debug purpose
+	for i in ${folder_list[@]};do
+		echo -ne "$i"
+	done
+
+
+}
 
 ### FUCK THAT
 #compare_lists(){
@@ -136,6 +154,7 @@ prepare_name(){
 
 main "$@"
 prepare_name $name $digits
+generate_list $target $name_done
 #echo $target
 #echo $name
 #echo $digits
