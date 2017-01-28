@@ -6,7 +6,8 @@ If you collect episodes of something, say armin van buuren a state of trance epi
 want to find out if you have all the episodes in a range you can use this script to do so.
 
 It automatically scans a specified directory and finds the highest and lowest available episode
-and checks if all episodes are in said directory. Then outputs it to screen. 
+and checks if all episodes are in said directory by comparing the list with a sequence of highs and lows. 
+It then prints out the missing episodes to screen.
 
 ## Usage
 ```bash
