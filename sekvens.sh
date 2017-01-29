@@ -25,7 +25,7 @@ helpmsg(){
 
 }
 
-regex="^(va|armin.van.buuren)+.*a.state.of.trance.*[0-9][0-9][0-9].*2016.*"
+#regex="^(va|armin.van.buuren)+.*a.state.of.trance.*[0-9][0-9][0-9].*2016.*"
 
 #ARCHIVE_PATH=$1
 
@@ -54,9 +54,10 @@ main(){
 	digits=""
 	print_to_file=false
 
-	$IFS=OLDIFS
-	IFS=$'\n'
+	OLDIFS=$IFS
 	
+	IFS=$'\n'
+
 	while getopts "t:n:d:ph" opt; do
 		case $opt in	
 		t)
@@ -96,7 +97,7 @@ main(){
 			;;
 		esac
 	done
-	$IFS=$OLDIFS
+	IFS=$OLDIFS
 }
 
 prepare_name(){
@@ -107,7 +108,7 @@ prepare_name(){
 	#echo $1
 	#echo $2
 
-	name_done=$(echo "^$1.*[0-9]{$2}.*" | tr ' ' '.*')
+	name_done=$(echo "$1.*(-|_)?[0-9]?{$2}(_|-)?.*" | tr ' ' '.*')
 	#echo "$name_done"
 
 }
@@ -117,14 +118,23 @@ generate_list(){
 	# generates the first list
 	# takes name-regex param
 
+	# implement some kinda path check feature	
 
+	#init=0
+
+	echo $1
+	echo $2
+
+	get_folders=$(find $1 -mindepth 1 -maxdepth 1 -type d | egrep -io "$2"| sort -n)
+	# throw $(find $1 -mindepth 1 -maxdepth 1 -type d |sort -u)
 	init=0
 
-	get_folders=$(find $1 -regextype posix-awk regex $2 -type d in $target)
+	#echo -ne $get_folders
 
 	for x in $get_folders;do
-		folder_list[init]=$x
-		$init=$((init+1))
+		#echo -ne "$x"
+		folder_list[init]=${x}
+		init=$((init+1))
 	done
 
 
@@ -132,7 +142,7 @@ generate_list(){
 
 	# debug purpose
 	for i in ${folder_list[@]};do
-		echo -ne "$i"
+		echo -ne "$i\n"
 	done
 
 
@@ -153,8 +163,8 @@ generate_list(){
 #}
 
 main "$@"
-prepare_name $name $digits
-generate_list $target $name_done
+prepare_name "$name" "$digits"
+generate_list "$target" "$name_done"
 #echo $target
 #echo $name
 #echo $digits
