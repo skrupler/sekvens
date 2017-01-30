@@ -13,7 +13,6 @@ It then prints out the missing episodes to screen.
 ```
 $ git clone https://github.com/skrupler/sekvens.git
 $ cd sekvens
-$ make
 # make install
 ```
 

@@ -108,11 +108,22 @@ prepare_name(){
 	#echo $1
 	#echo $2
 
-	name_done=$(echo "$1.*(-|_)?[0-9]?{$2}(_|-)?.*" | tr ' ' '.*')
+	name_done=$(echo "$2.*(-|_)+[0-9]{$3}+(_|-)+.*" | tr ' ' '.*')
 	#echo "$name_done"
+	name_done=$1$name_done
 
 }
 
+print_summary(){
+
+	# matches the
+	#
+	#
+
+
+
+
+}
 generate_list(){
 
 	# generates the first list
@@ -122,8 +133,8 @@ generate_list(){
 
 	#init=0
 
-	echo $1
-	echo $2
+	#echo $1
+	#echo $2
 
 	get_folders=$(find $1 -mindepth 1 -maxdepth 1 -type d | egrep -io "$2"| sort -n)
 	# throw $(find $1 -mindepth 1 -maxdepth 1 -type d |sort -u)
@@ -162,9 +173,8 @@ generate_list(){
 
 #}
 
+#main "$@"
+#prepare_name "$name" "$digits"
 main "$@"
-prepare_name "$name" "$digits"
+prepare_name "$target" "$name" "$digits"
 generate_list "$target" "$name_done"
-#echo $target
-#echo $name
-#echo $digits
