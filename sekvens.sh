@@ -114,50 +114,74 @@ prepare_name(){
 
 }
 
+
 print_summary(){
 
 	# matches the
 	#
 	#
+	# takes array of folder_list (complete list of releases)
 
-
-
-
+	echo ""
 }
 generate_list(){
 
 	# generates the first list
 	# takes name-regex param
 
-	# implement some kinda path check feature	
+	# implement some kinda path check feature	done
 
-	#init=0
+	if [[ -d $target ]];then
 
-	#echo $1
-	#echo $2
+		get_folders=$(find $1 -mindepth 1 -maxdepth 1 -type d | egrep -io "$2"| sort -n)
+		init=0
 
-	get_folders=$(find $1 -mindepth 1 -maxdepth 1 -type d | egrep -io "$2"| sort -n)
-	# throw $(find $1 -mindepth 1 -maxdepth 1 -type d |sort -u)
-	init=0
-
-	#echo -ne $get_folders
-
-	for x in $get_folders;do
-		#echo -ne "$x"
-		folder_list[init]=${x}
-		init=$((init+1))
-	done
+		for x in $get_folders;do
+			folder_list[init]=${x}
+			init=$((init+1))
+		done
 
 
-	#folder_list=$(ls $target| egrep -io $name_done)
+		#folder_list=$(ls $target| egrep -io $name_done)
 
-	# debug purpose
-	for i in ${folder_list[@]};do
-		echo -ne "$i\n"
-	done
-
+		# debug purpose
+		for i in ${folder_list[@]};do
+			echo -ne "$i\n"
+		done
+	else
+		echo -ne "Target path does not exist. Quitting.\n"
+		exit 1
+	fi
+	#echo ${folder_list[@]}
 
 }
+
+
+get_sequence(){
+
+
+	# debugging
+	#echo #$folder_list[@]
+	#echo ${folder_list[@]} | egrep -io "(_|-)+[0-9]{$1}(_|-)+" | tr -d '-' | tr -d '_' | sort -n
+
+
+	#for x in $folder_list[@];do
+	up=$(echo -ne "${folder_list[@]}" "\n" | egrep -oi "(_|-)+[0-9]{$1}(_|-)+" | tr -d '-' | tr -d '_' | sort -rnk3 | awk '!x[2]++')
+	echo -ne "UP: $up\n"
+
+	#done
+
+	#for y in $folder_list[@];do
+	
+	low=$(echo -ne "${folder_list[@]}" "\n" | egrep -oi "(_|-)+[0-9]{$1}(_|-)+" | tr -d '-' | tr -d '_' | sort -nk3 | awk '!x[2]++')
+	echo -ne "LOW: $low\n"
+
+	#done
+
+}
+
+
+
 
 ### FUCK THAT
 #compare_lists(){
@@ -178,3 +202,4 @@ generate_list(){
 main "$@"
 prepare_name "$target" "$name" "$digits"
 generate_list "$target" "$name_done"
+get_sequence "$digits"
