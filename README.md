@@ -9,6 +9,15 @@ It automatically scans a specified directory and finds the highest and lowest av
 and checks if all episodes are in said directory by comparing the list with a sequence of highs and lows. 
 It then prints out the missing episodes to screen.
 
+## Installation
+```
+$ git clone https://github.com/skrupler/sekvens.git
+$ cd sekvens
+$ make
+# make install
+```
+
+
 ## Usage
 ```bash
 ./sekvens.sh --target /path/to/save/location --name "armin van buuren a state of trance" --episode-digits 3
@@ -29,3 +38,6 @@ It then prints out the missing episodes to screen.
 ```bash
 foo/bar
 ```
+
+## License
+GPLv2
