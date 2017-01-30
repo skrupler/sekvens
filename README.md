@@ -19,7 +19,7 @@ $ cd sekvens
 
 ## Usage
 ```bash
-./sekvens.sh --target /path/to/save/location --name "armin van buuren a state of trance" --episode-digits 3
+./sekvens.sh -t /path/to/save/location -n "armin van buuren" -d 3
 ```
 
 ## Options
